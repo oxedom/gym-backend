@@ -34,26 +34,34 @@ const login = (loginObj) => {
 const register = (registerObj) => {
 
     return new Promise((resolve, reject) => {
+
     const password = toString(registerObj.password)
     const saltHash = utils.genPassword(password);
-    console.log("salthash: "+ saltHash)
+
     const salt  = saltHash.salt;
     const hash = saltHash.hash;
+    //Returns current time in UNIX
     const date = new Date().getTime() 
-      console.log(hash,salt)
+
     const newUser = new User({
-      username: registerObj.username,
-      hash: hash,
-      salt: salt,
-      email: registerObj.email,
-      birthday: registerObj.birthday,
-      accountCreation: date,
+    //User Data
+    username: registerObj.username,
+    fname: registerObj.fname,
+    lname: registerObj.lname,
+    email: registerObj.email,
+    gender: registerObj.gender,
+    birthday: registerObj.birthday,
+    //Password
+    hash: hash,
+    salt: salt,
+    //App Data
+    accountCreation: date,
     });
   
     try {
       newUser.save().then((user) => {
         const jwt = utils.issueJWT(user);
-        console.log("New User Created: " + user, user.hash, user.salt )
+        console.log("New User Created: " + user.username, user.hash, user.salt )
         resolve({
           success: true,
           user: user,
