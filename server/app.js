@@ -5,7 +5,8 @@ const express = require('express')
 const cors = require('cors')
 const { graphqlHTTP } = require('express-graphql');
 const { graphql } = require('graphql')
-const passport = require("passport");t
+const passport = require("passport"), LocalStrategy= require('passport-local').Strategy;
+
 const path = require('path');
 //Local imports 
 const schema = require('./schema/schema')
@@ -20,6 +21,10 @@ const config = require('./config/config')
 const port = 4000
 const app = express()
 
+//Error Handling:
+function errorHandler (err,req,res,next) {
+    res.json({err: err})
+}
 
 mongoose.connect(config, { useUnifiedTopology: true, useNewUrlParser: true } )
 .then( (result) => { app.listen(port, console.log(`Server connected to DB | http://localhost:${port}/`))})
@@ -32,6 +37,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/api/user/', user_routes)
-app.use('/graphql', graphqlHTTP({ schema, graphiql: true}));
+// app.use('/graphql', graphqlHTTP({ schema, graphiql: true}));
 
