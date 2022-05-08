@@ -1,5 +1,6 @@
 const User = require("../models/userModel.js");
 const utils = require("../lib/utlis")
+const userClass = require('../class/userClass')
 
 //Takes in loginObj username and password
 const login = (loginObj) => {
@@ -42,7 +43,12 @@ const register = (registerObj) => {
     const hash = saltHash.hash;
     //Returns current time in UNIX
     const date = new Date().getTime() 
-
+    
+    let itay = userClass("big")
+    for (const property in registerObj) {
+        console.log(`${property}: ${registerObj[property]}`);
+      }    
+    console.log(itay)
     const newUser = new User({
     //User Data
     username: registerObj.username,
@@ -51,12 +57,17 @@ const register = (registerObj) => {
     email: registerObj.email,
     gender: registerObj.gender,
     birthday: registerObj.birthday,
+
+  
+
     //Password
     hash: hash,
     salt: salt,
     //App Data
     accountCreation: date,
     });
+
+    
   
     try {
       newUser.save().then((user) => {
@@ -69,7 +80,7 @@ const register = (registerObj) => {
           expiresIn: jwt.expires,
         });
       });
-    } catch (err) { reject(err) }
+    } catch (err) { reject({error: err, status: 400}) }
      })
 
 }
