@@ -44,11 +44,11 @@ const register = (registerObj) => {
     //Returns current time in UNIX
     const date = new Date().getTime() 
     
-    let itay = userClass("big")
-    for (const property in registerObj) {
-        console.log(`${property}: ${registerObj[property]}`);
-      }    
-    console.log(itay)
+    // let itay = userClass("big")
+    // for (const property in registerObj) {
+    //     console.log(`${property}: ${registerObj[property]}`);
+    //   }    
+    // console.log(itay)
     const newUser = new User({
     //User Data
     username: registerObj.username,
