@@ -11,3 +11,5 @@ Vas2000 is a Fullstack Sport tracking app.
 * Understand the rsa keys
 * Continue watching Zachs Auth video
 * Digital Ocean and SSH
+///
+* Sort out the validation before creating a newUserObject and error handling 
