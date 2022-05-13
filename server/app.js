@@ -38,6 +38,24 @@ app.use(express.urlencoded({extended: true}));
 app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
+
+
+
+
+
+
+
 app.use('/api/user/', user_routes)
+
+
+//Error handling for non existing API requests
+app.get('*', function(req, res){
+    res.status(404).send('404');
+  });
+
+
+
 // app.use('/graphql', graphqlHTTP({ schema, graphiql: true}));
 

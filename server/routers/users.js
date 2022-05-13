@@ -66,4 +66,11 @@ router.delete("/:id", passport.authenticate("jwt", { session: false }),async fun
   }
 );
 
+router.get('/*', function(req, res){
+  res.send('what???', 404);
+});
+
+
+
+
 module.exports = router;
