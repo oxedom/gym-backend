@@ -1,6 +1,7 @@
 const User = require("../models/userModel.js");
 const utils = require("../lib/utlis")
 const userClass = require('../class/userClass')
+const errorBL = require('../bl/errorBL')
 
 //Takes in loginObj username and password
 const login = (loginObj) => {
@@ -36,19 +37,19 @@ const register = (registerObj) => {
 
     return new Promise((resolve, reject) => {
 
+    //Validation
+      if(registerObj.password.length < 8) {
+        reject("Password not long enough")
+      }
     const password = toString(registerObj.password)
     const saltHash = utils.genPassword(password);
-
     const salt  = saltHash.salt;
     const hash = saltHash.hash;
     //Returns current time in UNIX
     const date = new Date().getTime() 
     
-    // let itay = userClass("big")
-    // for (const property in registerObj) {
-    //     console.log(`${property}: ${registerObj[property]}`);
-    //   }    
-    // console.log(itay)
+   
+  
     const newUser = new User({
     //User Data
     username: registerObj.username,
@@ -80,7 +81,11 @@ const register = (registerObj) => {
           expiresIn: jwt.expires,
         });
       });
-    } catch (err) { reject({error: err, status: 400}) }
+    } catch (err) { 
+      
+      const errors = errorBL.registerHandle(err)
+      reject(errors) }
+      // reject({error: err, status: 400}) }
      })
 
 }

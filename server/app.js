@@ -46,7 +46,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-
+//User route used for AUTH
 app.use('/api/user/', user_routes)
 
 
