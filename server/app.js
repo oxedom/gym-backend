@@ -9,7 +9,7 @@ const passport = require("passport"), LocalStrategy= require('passport-local').S
 
 const path = require('path');
 //Local imports 
-const schema = require('./schema/schema')
+// const schema = require('./schema/schema')
 const user_routes = require('./routers/users')
 require('./models/userModel')
 require('./config/passport')(passport);

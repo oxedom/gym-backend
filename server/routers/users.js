@@ -1,6 +1,6 @@
 const express = require("express");
-// const userBL = require("../bl/userBL");
-// const authBL = require("../bl/authBL")
+const userBL = require("../bl/userBL");
+const authBL = require("../bl/authBL")
 const router = express.Router();
 const passport = require("passport");
 
@@ -11,6 +11,7 @@ router.get( "/protected",passport.authenticate("jwt", { session: false }),(req, 
       msg: "You are successfully authenticated to this route!",
     });
     if (err) {
+        console.log(err)
       next(err);
     }
   }

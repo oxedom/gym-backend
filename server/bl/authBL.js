@@ -1,5 +1,6 @@
 const User = require("../models/userModel.js");
 const utils = require("../lib/utlis")
+const userClass = require('../class/userClass')
 
 //Takes in loginObj username and password
 const login = (loginObj) => {
@@ -34,26 +35,44 @@ const login = (loginObj) => {
 const register = (registerObj) => {
 
     return new Promise((resolve, reject) => {
+
     const password = toString(registerObj.password)
     const saltHash = utils.genPassword(password);
-    console.log("salthash: "+ saltHash)
+
     const salt  = saltHash.salt;
     const hash = saltHash.hash;
+    //Returns current time in UNIX
     const date = new Date().getTime() 
-      console.log(hash,salt)
+    
+    // let itay = userClass("big")
+    // for (const property in registerObj) {
+    //     console.log(`${property}: ${registerObj[property]}`);
+    //   }    
+    // console.log(itay)
     const newUser = new User({
-      username: registerObj.username,
-      hash: hash,
-      salt: salt,
-      email: registerObj.email,
-      birthday: registerObj.birthday,
-      accountCreation: date,
+    //User Data
+    username: registerObj.username,
+    fname: registerObj.fname,
+    lname: registerObj.lname,
+    email: registerObj.email,
+    gender: registerObj.gender,
+    birthday: registerObj.birthday,
+
+  
+
+    //Password
+    hash: hash,
+    salt: salt,
+    //App Data
+    accountCreation: date,
     });
+
+    
   
     try {
       newUser.save().then((user) => {
         const jwt = utils.issueJWT(user);
-        console.log("New User Created: " + user, user.hash, user.salt )
+        console.log("New User Created: " + user.username, user.hash, user.salt )
         resolve({
           success: true,
           user: user,
@@ -61,7 +80,7 @@ const register = (registerObj) => {
           expiresIn: jwt.expires,
         });
       });
-    } catch (err) { reject(err) }
+    } catch (err) { reject({error: err, status: 400}) }
      })
 
 }
