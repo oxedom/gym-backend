@@ -37,18 +37,17 @@ const register = (registerObj) => {
 
     return new Promise((resolve, reject) => {
 
-    //Validation
+    //Pass length Validation
       if(registerObj.password.length < 8) {
-        reject("Password not long enough")
+        return resolve("Password not long enough")
       }
+
     const password = toString(registerObj.password)
     const saltHash = utils.genPassword(password);
     const salt  = saltHash.salt;
     const hash = saltHash.hash;
     //Returns current time in UNIX
     const date = new Date().getTime() 
-    
-   
   
     const newUser = new User({
     //User Data
@@ -59,8 +58,6 @@ const register = (registerObj) => {
     gender: registerObj.gender,
     birthday: registerObj.birthday,
 
-  
-
     //Password
     hash: hash,
     salt: salt,
@@ -68,8 +65,6 @@ const register = (registerObj) => {
     accountCreation: date,
     });
 
-    
-  
     try {
       newUser.save().then((user) => {
         const jwt = utils.issueJWT(user);
@@ -84,7 +79,7 @@ const register = (registerObj) => {
     } catch (err) { 
       
       const errors = errorBL.registerHandle(err)
-      reject(errors) }
+      return resolve(errors) }
       // reject({error: err, status: 400}) }
      })
 
