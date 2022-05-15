@@ -13,3 +13,6 @@ Vas2000 is a Fullstack Sport tracking app.
 * Digital Ocean and SSH
 ///
 * Sort out the validation before creating a newUserObject and error handling 
+* When a new user is created, the sever should return a sucess message if sucess with a status code,
+else it should return 400 with the error messages, if multiple errors occure ie shortpassword+bademail+username it should return all of them!"
+maybe throw a new error with the password thing because it's not in the schema logic 
