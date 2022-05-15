@@ -1,5 +1,8 @@
 const registerHandle = (err) => {
-    console.log(err.message, err.code);
+
+    console.log(`The error message is ${err.message}`);
+    console.log(`The error code is ${err.code}`);
+
     let errors = { email: '', password: '' };
   
     // duplicate email error
