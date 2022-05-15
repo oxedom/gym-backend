@@ -1,5 +1,5 @@
 class userRegister {
-    constructor(username,fname,lname,email,gender,birthday) {
+    constructor(username, fname, lname, email, gender, birthday) {
         this.username = username
         this.fname = fname
         this.lname = lname
@@ -8,4 +8,6 @@ class userRegister {
         this.birthday = birthday
     }
 }
-module.exports = {userRegister}
+module.exports = {
+    userRegister
+}

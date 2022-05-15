@@ -1,5 +1,9 @@
-const { log } = require("console");
-const { Hash } = require("crypto");
+const {
+  log
+} = require("console");
+const {
+  Hash
+} = require("crypto");
 const User = require("../models/userModel");
 
 const getAllUsers = () => {
@@ -20,8 +24,8 @@ const getUserById = (id) => {
       if (err) {
         reject(err);
       } else {
-         let resp = data 
-         
+        let resp = data
+
         //  delete resp.hash
         //   delete resp.salt 
         //   resp.username = "DEBUG"
@@ -51,16 +55,20 @@ const updateUserById = (id, obj) => {
 };
 
 const deleteUserById = (id) => {
-    return new Promise((resolve,reject)=>{
-        User.findByIdAndDelete(id,(err)=>{
-            if (err){
-                reject (err)
-            }
-            else {
-                resolve ("User Removed")
-            }
-        })
+  return new Promise((resolve, reject) => {
+    User.findByIdAndDelete(id, (err) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve("User Removed")
+      }
     })
+  })
 }
 
-module.exports = { getAllUsers, getUserById, updateUserById, deleteUserById };
+module.exports = {
+  getAllUsers,
+  getUserById,
+  updateUserById,
+  deleteUserById
+};

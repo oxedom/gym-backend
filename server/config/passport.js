@@ -14,17 +14,20 @@ const options = {
   algorithms: ["RS256"],
 };
 const strategy = new JwtStrategy(options, (payload, done) => {
-  User.findOne({ _id: payload.sub })
-    .then((user) => {
-        if (user) {
-        return done(null, user);
-        } else {
-        return done(null, false);
-        }
+  User.findOne({
+      _id: payload.sub
     })
-    .catch(err=> done (err, null))
+    .then((user) => {
+      if (user) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+      }
+    })
+    .catch(err => done(err, null))
 });
 // app.js will pass the global passport object here, and this function will configure it
 module.exports = (passport) => {
   // The JWT payload is passed into the verify callback
-  passport.use(strategy)}
+  passport.use(strategy)
+}
