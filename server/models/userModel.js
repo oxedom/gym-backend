@@ -21,8 +21,13 @@ const userSchema = mongoose.Schema({
     unique: true,
     lowercase: true,
   },
+  //ISO/IEC 5218 Standard for gender
   gender: {
-    type: String
+    type: Number,
+    min: 0,
+    max: 4,
+    required: [true, 'Please enter a gender'],
+    lowercase: true,
   },
   birthday: Number,
   //Password
@@ -31,6 +36,11 @@ const userSchema = mongoose.Schema({
   //App Data
   sessions: [{
     sessionID: String,
+    sessionToken: String,
+    date: String
+  }],
+  sessionWallet: [{
+    sessionToken: String,
     date: String
   }],
   accountCreation: Number,

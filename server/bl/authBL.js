@@ -77,12 +77,13 @@ const register = (registerObj) => {
         console.log('Save called back function fired');
         if (err) {
           console.log(`Error saving, passing err object to error BL and returning it.`)
-          console.log(err);
+          const errors = errorBL.registerHandle(err)
+          return resolve({
+            error: errors,
+            status: 400
+          })
         }
 
-        if (err) {
-          return errorBL.registerHandle(err)
-        }
       }).then((user) => {
         const jwt = utils.issueJWT(user);
         console.log("New User Created: " + user.username, user.hash, user.salt)
@@ -95,19 +96,17 @@ const register = (registerObj) => {
       });
     } catch (err) {
 
-      const errors = errorBL.registerHandle(err)
+
+
       return resolve({
-        error: errors,
+        error: errorBL.registerHandle(err),
+        bitch: "Bitch",
         status: 400
       })
     }
   })
 
 }
-
-
-
-
 
 module.exports = {
   login,
