@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const Schema = mongoose.Schema
 
 const equipmentSchema = mongoose.Schema({
 
@@ -18,4 +18,4 @@ const equipmentSchema = mongoose.Schema({
     }]
 });
 
-module.exports = mongoose.model("equipment", equitmentSchema);
+module.exports = mongoose.model("equipment", equipmentSchema);

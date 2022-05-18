@@ -1,9 +1,9 @@
 const User = require('../models/userModel')
 const Session = require('../models/sessionModel')
-const Exercise = require('../models/exerciseModel')
+const Equipment = require('../models/equipmentModel')
 
 const Plan = require('../models/planModel')
-const Muscle = require('../models/MuscleModel')
+const Muscle = require('../models/muscleModel')
 
 const graphql = require('graphql');
 const {
@@ -51,7 +51,7 @@ const UserType = new GraphQLObjectType({
             type: new GraphQLList(SessionType),
 
             sessionWallet: {
-                type: new GraphQLList(CommentType)
+                type: GraphQLList
             },
             accountCreation: {
                 type: GraphQLInt
@@ -85,8 +85,8 @@ const SessionType = new GraphQLObjectType({
     })
 })
 
-const ExerciseType = new GraphQLObjectType({
-    name: 'Exercise',
+const equipmentType = new GraphQLObjectType({
+    name: 'Equipment',
     fields: () => ({
         id: {
             type: GraphQLID
@@ -122,8 +122,8 @@ const PlanType = new GraphQLObjectType({
         enddate: {
             type: GraphQLString
         },
-        exercises: {
-            type: new GraphQLList(ExerciseType)
+        equipments: {
+            type: new GraphQLList(equipmentType)
         },
         records: {
             type: GraphQLList
@@ -158,7 +158,8 @@ const MuscleType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
-        post: {
+        //Single items
+        user: {
             type: UserType,
             args: {
                 id: {
@@ -170,31 +171,6 @@ const RootQuery = new GraphQLObjectType({
                 return User.findById(args.id)
             }
         },
-        comment: {
-            type: CommentType,
-            args: {
-                id: {
-                    type: GraphQLID
-                }
-            },
-            resolve(parent, args) {
-                return Comment.findById(args.id)
-            }
-        },
-        posts: {
-            type: new GraphQLList(PostType),
-            resolve(parent, args) {
-                return Post.find({})
-            }
-        }
-
-        ,
-        comments: {
-            type: new GraphQLList(CommentType),
-            resolve(parent, args) {
-                return Comment.find({})
-            }
-        }
     },
 
 });
