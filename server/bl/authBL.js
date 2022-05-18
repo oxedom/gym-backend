@@ -95,14 +95,15 @@ const register = (registerObj) => {
         });
       });
     } catch (err) {
+      if (err) {
+        return resolve({
+          error: errorBL.registerHandle(err),
+          bitch: "Bitch",
+          status: 400
+        })
 
+      }
 
-
-      return resolve({
-        error: errorBL.registerHandle(err),
-        bitch: "Bitch",
-        status: 400
-      })
     }
   })
 
