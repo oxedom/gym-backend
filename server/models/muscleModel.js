@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const muscleSchema = mongoose.Schema({
-    _id: Schema.Types.ObjectId,
+
     name: {
         type: String
     },

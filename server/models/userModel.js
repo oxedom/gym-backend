@@ -5,7 +5,7 @@ const {
 
 const userSchema = mongoose.Schema({
 
-  _id: Schema.Types.ObjectId,
+  // _id: mongoose.Schema.Types.ObjectId,
   //User Data
   username: {
     type: String,

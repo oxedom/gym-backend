@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 
 const sessionSchema = mongoose.Schema({
-    _id: Schema.Types.ObjectId,
+
     userid: {
         type: Schema.Types.ObjectId,
         ref: 'User'

@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 
-const equitmentSchema = mongoose.Schema({
-    _id: Schema.Types.ObjectId,
+const equipmentSchema = mongoose.Schema({
+
     name: {
         type: String
     },
@@ -11,7 +11,11 @@ const equitmentSchema = mongoose.Schema({
     },
     weight_max: {
         type: Number
-    }
+    },
+    muscles: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Muscle'
+    }]
 });
 
-module.exports = mongoose.model("equitment", equitmentSchema);
+module.exports = mongoose.model("equipment", equitmentSchema);

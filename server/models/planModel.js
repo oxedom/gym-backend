@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 
 const planSchema = mongoose.Schema({
-    _id: Schema.Types.ObjectId,
+
     userid: {
         type: Schema.Types.ObjectId,
         ref: 'User'
@@ -17,7 +17,10 @@ const planSchema = mongoose.Schema({
         type: Boolean
     },
     exercises: {
-        type: [{}],
+        type: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Exercise'
+        }],
     },
     records: {
         type: [{}],
