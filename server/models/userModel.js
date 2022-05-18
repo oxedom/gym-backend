@@ -5,6 +5,7 @@ const {
 
 const userSchema = mongoose.Schema({
 
+  _id: Schema.Types.ObjectId,
   //User Data
   username: {
     type: String,

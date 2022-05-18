@@ -15,6 +15,7 @@ const passport = require("passport"),
 const path = require('path');
 //Local imports 
 // const schema = require('./schema/schema')
+const schema = require('./schema/schema')
 const user_routes = require('./routers/users')
 require('./models/userModel')
 require('./config/passport')(passport);
@@ -45,13 +46,17 @@ db.on("error", console.error.bind(console, "mongo connection error"))
 
 //App USE 
 app.use(passport.initialize());
+
 app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
 app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use('/graphql', graphqlHTTP({
+  schema,
+  graphiql: true
+}));
 
 
 
