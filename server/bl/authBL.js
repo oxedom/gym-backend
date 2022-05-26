@@ -2,10 +2,16 @@ const User = require("../models/userModel.js");
 const utils = require("../lib/utlis")
 const userClass = require('../class/userClass')
 const errorBL = require('../bl/errorBL')
-
+const {
+  pool
+} = require("./postConfig");
+const pgUtils = require("../pg_utlis/query")
 //Takes in loginObj username and password
 const login = (loginObj) => {
   return new Promise((resolve, reject) => {
+
+    pgUtils.retrieveUser(loginObj.username)
+
     User.findOne({
       username: loginObj.username
     }, (err, user) => {
