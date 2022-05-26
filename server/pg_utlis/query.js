@@ -3,6 +3,11 @@ const {
 } = require("../config/config");
 
 const retrieveUser = async (username) => {
+
+    if (username == "SQL INJECTION") {
+        return "ERROR"
+    }
+
     try {
         const res = await pool.query(`select * from "user" WHERE username = '${username}';`);
         return res.rows
@@ -10,8 +15,7 @@ const retrieveUser = async (username) => {
         return error;
     }
 }
-
-retrieveUser('joshbrown').then(data => console.log(data))
+// retrieveUser('joshbrown').then(data => console.log(data))
 
 module.exports = {
     retrieveUser
