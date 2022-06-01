@@ -4,33 +4,29 @@ const insertUtils = require('../pg_utlis/insert')
 const queryUtils = require("../pg_utlis/query")
 
 //Takes in loginObj username and password
-const login = async (loginObj) => {
-  return new Promise((resolve, reject) => {
-    try {
-      const user = queryUtils.retrieveUser(loginObj.username)
-      let password = toString(loginObj.password)
-      let hash = user.hash
-      let salt = user.salt
-      const isValid = utils.validPassword(password, hash, salt);
-      if (isValid) {
-        const tokenObject = utils.issueJWT(user);
-        resolve({
-          success: true,
-          user: user,
-          token: tokenObject.token,
-          expiresIn: tokenObject.expires,
-        })
-      } else {
-        resolve({
-          success: false,
-          msg: "you have entered the wrong password"
-        })
-      }
-    } catch (err) {
+const login = (loginObj) => {
+  return new Promise(async (resolve, reject) => {
 
-      reject(err)
-
+    const user = await queryUtils.retrieveUserByUsername(loginObj.username)
+    let password = toString(loginObj.password)
+    let hash = user[0].hash
+    let salt = user[0].salt
+    const isValid = utils.validPassword(password, hash, salt);
+    if (isValid) {
+      const tokenObject = utils.issueJWT(user);
+      resolve({
+        success: true,
+        user: user,
+        token: tokenObject.token,
+        expiresIn: tokenObject.expires,
+      })
+    } else {
+      resolve({
+        success: false,
+        msg: "you have entered the wrong password"
+      })
     }
+
   })
 }
 
@@ -61,42 +57,10 @@ const register = (registerObj) => {
       //App Data
 
     };
+    resolve(insertUtils.addUser(newUser))
 
-    insertUtils.addUser(newUser)
 
-    // try {
-    //   newUser.save((err) => {
-    //     console.log('Save called back function fired');
-    //     if (err) {
-    //       console.log(`Error saving, passing err object to error BL and returning it.`)
-    //       const errors = errorBL.registerHandle(err)
-    //       return resolve({
-    //         error: errors,
-    //         status: 400
-    //       })
-    //     }
 
-    //   }).then((user) => {
-    //     const jwt = utils.issueJWT(user);
-    //     console.log("New User Created: " + user.username, user.hash, user.salt)
-    //     resolve({
-    //       success: true,
-    //       user: user,
-    //       token: jwt.token,
-    //       expiresIn: jwt.expires,
-    //     });
-    //   });
-    // } catch (err) {
-    //   if (err) {
-    //     return resolve({
-    //       error: errorBL.registerHandle(err),
-    //       bitch: "Bitch",
-    //       status: 400
-    //     })
-
-    // }
-
-    // }
   })
 
 }

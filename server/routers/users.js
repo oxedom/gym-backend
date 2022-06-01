@@ -12,7 +12,6 @@ router.get("/protected", passport.authenticate("jwt", {
     msg: "You are successfully authenticated to this route!",
   });
   if (err) {
-    console.log(err)
     next(err);
   }
 });
