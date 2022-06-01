@@ -15,11 +15,18 @@ const addUser = async (newUser) => {
         salt
     } = newUser
 
-    const res = await pool.query(
-        `INSERT INTO "user" (username, fname, lname, hash, salt)
-    VALUES ('${username}', '${fname}' , '${lname}' , '${hash}' , '${salt}')`
-    );
-    console.log(`Added a User with the name ${lname}`);
+    let text = 'INSERT INTO "user"(username, fname, lname, hash, salt) VALUES($1, $2, $3, $4, $5) RETURNING *'
+    let values = [username, fname, lname, hash, salt]
+
+    const res = pool.query(text, values, (err, res) => {
+        if (err) {
+            return err;
+        } else {
+            console.log(`Added a User with the username ${username}`);
+            return res;
+        }
+    });
+
 
 
     return res

@@ -1,7 +1,7 @@
 config/config.js
 id_rsa_priv.pem
 id_rsa_pub.pem
-mongoose/
+old/
 node_modules/
 test/
 schema/

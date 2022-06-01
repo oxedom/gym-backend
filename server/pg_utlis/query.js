@@ -4,9 +4,6 @@ const {
 
 const retrieveUser = async (username) => {
 
-    if (username == "SQL INJECTION") {
-        return "ERROR"
-    }
 
     try {
         const res = await pool.query(`select * from "user" WHERE username = '${username}';`);
@@ -16,18 +13,23 @@ const retrieveUser = async (username) => {
     }
 }
 
-const retrieveUserByID = async (id) => {
+const retrieveUserByID = (id) => {
 
-    if (username == "SQL INJECTION") {
-        return "ERROR"
+    const query = {
+        name: "fetch-user-by-id",
+        text: `SELECT * FROM "user" WHERE id = $1`,
+        values: [id]
     }
 
-    try {
-        const res = await pool.query(`select * from "user" WHERE id = '${id}';`);
-        return res.rows
-    } catch (error) {
-        return error;
-    }
+    return new Promise((resolve, reject) => {
+        res = pool.query(query, (err, res) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(res.rows)
+            }
+        });
+    })
 }
 
 
