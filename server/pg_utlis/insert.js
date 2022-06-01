@@ -3,7 +3,7 @@ const {
 } = require("../config/config");
 
 const addUser = async (newUser) => {
-
+    console.log('ADD USER FUNCTION HAS FIRED');
     const {
         username,
         fname,
@@ -14,14 +14,15 @@ const addUser = async (newUser) => {
         hash,
         salt
     } = newUser
-    const [name, color] = process.argv.slice(2);
 
     const res = await pool.query(
-        `INSERT INTO user (username, fname, lname, hash, salt) VALUES (${username}, ${fname} , ${lname} , ${hash} , ${salt})`
+        `INSERT INTO "user" (username, fname, lname, hash, salt)
+    VALUES ('${username}', '${fname}' , '${lname}' , '${hash}' , '${salt}')`
     );
-    console.log(`Added a User with the name ${name}`);
+    console.log(`Added a User with the name ${lname}`);
 
-    console.log(name, color);
+
+    return res
 }
 
 
