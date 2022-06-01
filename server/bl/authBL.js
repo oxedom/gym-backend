@@ -1,15 +1,13 @@
-const User = require("../models/userModel.js");
 const utils = require("../lib/utlis")
-const userClass = require('../class/userClass')
 const errorBL = require('../bl/errorBL')
-
 const insertUtils = require('../pg_utlis/insert')
-const pgUtils = require("../pg_utlis/query")
+const queryUtils = require("../pg_utlis/query")
+
 //Takes in loginObj username and password
 const login = async (loginObj) => {
   return new Promise((resolve, reject) => {
     try {
-      const user = pgUtils.retrieveUser(loginObj.username)
+      const user = queryUtils.retrieveUser(loginObj.username)
       let password = toString(loginObj.password)
       let hash = user.hash
       let salt = user.salt
@@ -30,7 +28,7 @@ const login = async (loginObj) => {
       }
     } catch (err) {
 
-      resolve(err)
+      reject(err)
 
     }
   })

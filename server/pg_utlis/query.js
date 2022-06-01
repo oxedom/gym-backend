@@ -15,8 +15,23 @@ const retrieveUser = async (username) => {
         return error;
     }
 }
-// retrieveUser('joshbrown').then(data => console.log(data))
+
+const retrieveUserByID = async (id) => {
+
+    if (username == "SQL INJECTION") {
+        return "ERROR"
+    }
+
+    try {
+        const res = await pool.query(`select * from "user" WHERE id = '${id}';`);
+        return res.rows
+    } catch (error) {
+        return error;
+    }
+}
+
 
 module.exports = {
-    retrieveUser
+    retrieveUser,
+    retrieveUserByID
 }

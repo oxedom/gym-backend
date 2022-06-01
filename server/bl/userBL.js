@@ -4,7 +4,7 @@ const {
 const {
   Hash
 } = require("crypto");
-const User = require("../models/userModel");
+
 
 const getAllUsers = () => {
   return new Promise((resolve, reject) => {

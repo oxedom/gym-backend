@@ -13,13 +13,10 @@ const passport = require("passport"),
 
 const path = require('path');
 //Local imports 
-// const schema = require('./schema/schema')
 const user_routes = require('./routers/users')
-// require('./models/userModel')
 require('./config/passport')(passport);
 
 //Config
-// const config = require('./config/config')
 
 //Declartions
 const port = 4000
