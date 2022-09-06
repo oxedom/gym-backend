@@ -1,7 +1,6 @@
 README:
 
-Vas2000 is a modern CMS sport fitness tracking app that is built for trainers
-[N] = Mean ref to links that are attached to the end of the README. 
+CMS sport fitness tracking app that is built for trainers
 
 Personal trainer will register a trainee, build him a custom plan. After all the setup the trainer can create training sessions for trainees and input session data while the session is happening.. The state of the session is updated at runtime, when the session ends the trainee will be able to see a summary of his training session as well. In general the trainee will have acesss to his stats in another standalone fullstack app (quries the same DB)
 
